@@ -7,12 +7,16 @@ module.exports = (source, {
 	allow-class = no
 	allow-return = no
 	allow-throw = no
+	allow-break = no
+	allow-continue = no
 } = {}) ->
 	lex = parse-ls source
 
-	(if allow-class  then [] else check-class  lex) ++
-	(if allow-return then [] else check-return lex) ++
-	(if allow-throw  then [] else check-throw  lex)
+	(if allow-class     then [] else check-class    lex) ++
+	(if allow-return    then [] else check-return   lex) ++
+	(if allow-throw     then [] else check-throw    lex) ++
+	(if allow-break     then [] else check-break    lex) ++
+	(if allow-continue  then [] else check-continue lex)
 
 filter-by-tag = (tag, lex) -->
 	lex |> filter ([_tag, , , ]) -> _tag == tag
@@ -30,3 +34,9 @@ check-return = (lex) ->
 
 check-throw = (lex) ->
 	lex |> filter-by-tag \HURL |> filter-by-value \throw |> to-error \throw-is-not-allowed
+
+check-break = (lex) ->
+	lex |> filter-by-tag \JUMP |> filter-by-value \break |> to-error \break-is-not-allowed
+
+check-continue = (lex) ->
+	lex |> filter-by-tag \JUMP |> filter-by-value \continue |> to-error \continue-is-not-allowed
