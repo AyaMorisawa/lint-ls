@@ -11,6 +11,7 @@ module.exports = (source, {
 	allow-continue = no
 	allow-while = no
 	allow-case = no
+	allow-default = no
 } = {}) ->
 	lex = parse-ls source
 
@@ -20,7 +21,8 @@ module.exports = (source, {
 	(if allow-break     then [] else check-break    lex) ++
 	(if allow-continue  then [] else check-continue lex) ++
 	(if allow-while     then [] else check-while    lex) ++
-	(if allow-case      then [] else check-case     lex)
+	(if allow-case      then [] else check-case     lex) ++
+	(if allow-default   then [] else check-default  lex)
 
 filter-by-tag = (tag, lex) -->
 	lex |> filter ([_tag, , , ]) -> _tag == tag
@@ -50,3 +52,6 @@ check-while = (lex) ->
 
 check-case = (lex) ->
 	lex |> filter-by-tag \CASE |> filter-by-value \case |> to-error \case-is-not-allowed
+
+check-default = (lex) ->
+	lex |> filter-by-tag \DEFAULT |> to-error \default-is-not-allowed
