@@ -3,18 +3,30 @@ require! {
 	'prelude-ls': {map, filter}
 }
 
-# String -> Object -> List
 module.exports = (source, {
 	allow-class = no
+	allow-return = no
+	allow-throw = no
 } = {}) ->
 	lex = parse-ls source
-	errors = (if allow-class then [] else check-class lex)
 
-# String -> List -> List
+	(if allow-class  then [] else check-class  lex) ++
+	(if allow-return then [] else check-return lex) ++
+	(if allow-throw  then [] else check-throw  lex)
+
 filter-by-tag = (tag, lex) -->
 	lex |> filter ([_tag, , , ]) -> _tag == tag
 
+filter-by-value = (value, lex) -->
+	lex |> filter ([, _value, , ]) -> _value == value
 
-# List -> [Number, String]
+to-error = (error-type, lex) --> lex |> map ([, , line, ]) -> [line, error-type]
+
 check-class = (lex) ->
-	lex |> filter-by-tag \CLASS |> map ([, , line, ]) -> [line, \class-is-not-allowed]
+	lex |> filter-by-tag \CLASS |> to-error \class-is-not-allowed
+
+check-return = (lex) ->
+	lex |> filter-by-tag \HURL |> filter-by-value \return |> to-error \return-is-not-allowed
+
+check-throw = (lex) ->
+	lex |> filter-by-tag \HURL |> filter-by-value \throw |> to-error \throw-is-not-allowed
