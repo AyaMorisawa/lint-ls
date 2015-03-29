@@ -9,6 +9,7 @@ module.exports = (source, {
 	allow-throw = no
 	allow-break = no
 	allow-continue = no
+	allow-while = no
 } = {}) ->
 	lex = parse-ls source
 
@@ -16,7 +17,8 @@ module.exports = (source, {
 	(if allow-return    then [] else check-return   lex) ++
 	(if allow-throw     then [] else check-throw    lex) ++
 	(if allow-break     then [] else check-break    lex) ++
-	(if allow-continue  then [] else check-continue lex)
+	(if allow-continue  then [] else check-continue lex) ++
+	(if allow-while     then [] else check-while    lex)
 
 filter-by-tag = (tag, lex) -->
 	lex |> filter ([_tag, , , ]) -> _tag == tag
@@ -40,3 +42,6 @@ check-break = (lex) ->
 
 check-continue = (lex) ->
 	lex |> filter-by-tag \JUMP |> filter-by-value \continue |> to-error \continue-is-not-allowed
+
+check-while = (lex) ->
+	lex |> filter-by-tag \WHILE |> to-error \while-is-not-allowed
