@@ -1,5 +1,5 @@
 name: 'lint-ls'
-version: '0.0.0'
+version: '0.1.0'
 
 description: 'Linter for LiveScript'
 
