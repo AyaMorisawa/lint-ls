@@ -15,6 +15,7 @@ module.exports = (source, {
 	allow-default = no
 	allow-null = no
 	allow-void = no
+	allow-this = no
 	allow-delete = no
 	allow-eval = no
 	enforce-pascal-case-class-name = yes
@@ -31,6 +32,7 @@ module.exports = (source, {
 	(if allow-default   then [] else check-default  lex) ++
 	(if allow-null      then [] else check-null     lex) ++
 	(if allow-void      then [] else check-void     lex) ++
+	(if allow-this      then [] else check-this     lex) ++
 	(if allow-delete    then [] else check-delete   lex) ++
 	(if allow-eval      then [] else check-eval     lex) ++
 	(unless enforce-pascal-case-class-name then [] else check-pascal-case-class-name lex)
@@ -65,6 +67,9 @@ check-null = (lex) ->
 
 check-void = (lex) ->
 	lex |> filter is-tag \LITERAL |> filter is-value \void |> to-error \void-is-not-allowed
+
+check-this = (lex) ->
+	lex |> filter is-tag \LITERAL |> filter is-value \this |> to-error \this-is-not-allowed
 
 check-delete = (lex) ->
 	lex |> filter is-tag \UNARY |> filter is-value-by (in <[ delete jsdelete ]>) |> to-error \delete-is-not-allowed
