@@ -2,11 +2,11 @@ require! {
 	'prelude-ls': {map, filter}
 }
 
-first = (xs) -> xs.0
+first = (.0)
 
-second = (xs) -> xs.1
+second = (.1)
 
-third = (xs) -> xs.2
+third = (.2)
 
 filter2 = (f, g, xss) --> xss |> filter ([a, b]) -> f a and g b
 
