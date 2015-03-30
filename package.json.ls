@@ -3,6 +3,12 @@ version: '0.1.0'
 
 description: 'Linter for LiveScript'
 
+author:
+	name: 'Aya Morisawa'
+	url: 'https://github.com/AyaMorisawa'
+
+homepage: 'https://github.com/AyaMorisawa/lint-ls'
+bugs: 'https://github.com/AyaMorisawa/lint-ls/issues'
 license: 'MIT'
 
 main: './lib/'
@@ -12,6 +18,10 @@ bin:
 scripts:
 	test: 'gulp test'
 	build: 'gulp build'
+
+repository:
+	type: 'git'
+	url: 'git://github.com/AyaMorisawa/lint-ls.git'
 
 dependencies:
 	LiveScript: '1.3.1'
