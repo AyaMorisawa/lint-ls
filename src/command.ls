@@ -1,1 +1,1 @@
-throw new Error('Sorry. Not implemented.');
+throw new Error 'Sorry. Not implemented.'
