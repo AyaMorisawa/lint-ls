@@ -18,7 +18,7 @@ module.exports = (source, {
 	allow-eval = no
 	enforce-pascal-case-class-name = yes
 } = {}) ->
-	lex = parse-ls source
+	const lex = parse-ls source
 
 	(if allow-class     then [] else check-class    lex) ++
 	(if allow-return    then [] else check-return   lex) ++
