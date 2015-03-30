@@ -19,7 +19,7 @@ is-value = (value) -> is-value-by (is value)
 to-error = (error-type, lex) --> lex |> map ([, , line, ]) -> [line, error-type]
 
 windowed = (size, xs) -->
-	last = xs.length - size
+	const last = xs.length - size
 	if last < 0 then [] else [xs[i til i + size] for i from 0 to last]
 
 is-pascal-case = (text) -> text is /^([A-Z][a-z]+)+$/
