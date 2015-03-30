@@ -16,7 +16,7 @@ is-value-by = (f, [, value, , ]) --> f value
 
 is-value = (value) -> is-value-by (is value)
 
-to-error = (error-type, lex) --> lex |> map ([, , line, ]) -> [line, error-type]
+to-error = (error-type, lex) --> lex |> map ([, , line, ]) -> [line + 1, error-type]
 
 windowed = (size, xs) -->
 	const last = xs.length - size
