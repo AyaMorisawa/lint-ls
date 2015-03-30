@@ -12,8 +12,6 @@ bugs: 'https://github.com/AyaMorisawa/lint-ls/issues'
 license: 'MIT'
 
 main: './lib/'
-bin:
-	'lint-ls': './bin/lint-ls'
 
 scripts:
 	test: 'gulp test'
