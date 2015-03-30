@@ -10,11 +10,11 @@ third = (xs) -> xs.2
 
 filter2 = (f, g, xss) --> xss |> filter ([a, b]) -> f a and g b
 
-is-tag-by = (f, [tag, , , ]) --> f tag
+is-tag-by = (f, token) --> f first token
 
 is-tag = (tag) -> is-tag-by (is tag)
 
-is-value-by = (f, [, value, , ]) --> f value
+is-value-by = (f, token) --> f second token
 
 is-value = (value) -> is-value-by (is value)
 
