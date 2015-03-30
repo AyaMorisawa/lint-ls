@@ -15,6 +15,7 @@ module.exports = (source, {
 	allow-default = no
 	allow-null = no
 	allow-void = no
+	allow-eval = no
 	enforce-pascal-case-class-name = yes
 } = {}) ->
 	lex = parse-ls source
@@ -29,6 +30,7 @@ module.exports = (source, {
 	(if allow-default   then [] else check-default  lex) ++
 	(if allow-null      then [] else check-null     lex) ++
 	(if allow-void      then [] else check-void     lex) ++
+	(if allow-eval      then [] else check-eval     lex) ++
 	(unless enforce-pascal-case-class-name then [] else check-pascal-case-class-name lex)
 
 check-class = (lex) ->
@@ -60,6 +62,9 @@ check-null = (lex) ->
 
 check-void = (lex) ->
 	lex |> filter is-tag \LITERAL |> filter is-value \void |> to-error \void-is-not-allowed
+
+check-eval = (lex) ->
+	lex |> filter is-tag \LITERAL |> filter is-value \eval |> to-error \eval-is-not-allowed
 
 check-pascal-case-class-name = (lex) ->
 	lex
