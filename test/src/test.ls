@@ -82,3 +82,18 @@ describe \allow-eval (...) ->
 	it \no ->
 		lint-ls 'a = eval b' .should.have.deep.property '[0][1]' .equal \eval-is-not-allowed
 
+describe \enforce-pascal-case-class-name (...) ->
+	it \pascal-case-1 ->
+		lint 'class Hoge' {+allow-class} .should.be.empty
+	it \pascal-case-2
+		lint 'class HogeHuga' {+allow-class} .should.be.empty
+	it \lower-camel-case
+		lint 'class hogeHuga' {+allow-class} .should.have.deep.property '[0][1]' .equal \class-name-must-be-pascal-case
+	it \lower-chain-case
+		lint 'class hoge-huga' {+allow-class} .should.have.deep.property '[0][1]' .equal \class-name-must-be-pascal-case
+	it \upper-chain-case
+		lint 'class HOGE-HUGA' {+allow-class} .should.have.deep.property '[0][1]' .equal \class-name-must-be-pascal-case
+	it \lower-snake-case
+		lint 'class hoge_huga' {+allow-class} .should.have.deep.property '[0][1]' .equal \class-name-must-be-pascal-case
+	it \upper-snake-case
+		lint 'class HOGE_HUGA' {+allow-class} .should.have.deep.property '[0][1]' .equal \class-name-must-be-pascal-case
