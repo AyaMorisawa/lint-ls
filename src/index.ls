@@ -1,6 +1,7 @@
 require! {
 	LiveScript: {lex: parse-ls}
 	'prelude-ls': {map, filter}
+	'./util': {filter-by-tag, filter-by-value, to-error}
 }
 
 module.exports = (source, {
@@ -23,14 +24,6 @@ module.exports = (source, {
 	(if allow-while     then [] else check-while    lex) ++
 	(if allow-case      then [] else check-case     lex) ++
 	(if allow-default   then [] else check-default  lex)
-
-filter-by-tag = (tag, lex) -->
-	lex |> filter ([_tag, , , ]) -> _tag == tag
-
-filter-by-value = (value, lex) -->
-	lex |> filter ([, _value, , ]) -> _value == value
-
-to-error = (error-type, lex) --> lex |> map ([, , line, ]) -> [line, error-type]
 
 check-class = (lex) ->
 	lex |> filter-by-tag \CLASS |> to-error \class-is-not-allowed
