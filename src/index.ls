@@ -1,7 +1,7 @@
 require! {
 	LiveScript: {lex: parse-ls}
 	'prelude-ls': {filter, map, sort-by}
-	'./util': {first, second, filter2, is-tag, is-value-by, is-value, to-error, windowed, is-not-pascal-case}
+	'./util': {fst, snd, filter2, is-tag, is-value-by, is-value, to-error, windowed, is-not-pascal-case}
 }
 
 module.exports = (source, {
@@ -36,7 +36,7 @@ module.exports = (source, {
 	(if allow-delete    then [] else check-delete   lex) ++
 	(if allow-eval      then [] else check-eval     lex) ++
 	(unless enforce-pascal-case-class-name then [] else check-pascal-case-class-name lex)
-	|> sort-by first
+	|> sort-by fst
 
 check-class = (lex) ->
 	lex |> filter is-tag \CLASS |> to-error \class-is-not-allowed
@@ -80,4 +80,4 @@ check-eval = (lex) ->
 check-pascal-case-class-name = (lex) ->
 	lex
 	|> windowed 2 |> filter2 (is-tag \CLASS), (is-value-by is-not-pascal-case)
-	|> map second |> to-error \class-name-must-be-pascal-case
+	|> map snd |> to-error \class-name-must-be-pascal-case
