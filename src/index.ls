@@ -13,6 +13,7 @@ module.exports = (source, {
 	allow-while = no
 	allow-case = no
 	allow-default = no
+	allow-null = no
 	enforce-pascal-case-class-name = yes
 } = {}) ->
 	lex = parse-ls source
@@ -25,6 +26,7 @@ module.exports = (source, {
 	(if allow-while     then [] else check-while    lex) ++
 	(if allow-case      then [] else check-case     lex) ++
 	(if allow-default   then [] else check-default  lex) ++
+	(if allow-null      then [] else check-null     lex) ++
 	(unless enforce-pascal-case-class-name then [] else check-pascal-case-class-name lex)
 
 check-class = (lex) ->
@@ -50,6 +52,9 @@ check-case = (lex) ->
 
 check-default = (lex) ->
 	lex |> filter is-tag \DEFAULT |> to-error \default-is-not-allowed
+
+check-null = (lex) ->
+	lex |> filter is-tag \LITERAL |> filter is-value \null |> to-error \null-is-not-allowed
 
 check-pascal-case-class-name = (lex) ->
 	lex
