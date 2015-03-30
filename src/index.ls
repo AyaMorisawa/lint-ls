@@ -1,6 +1,5 @@
 require! {
 	LiveScript: {lex: parse-ls}
-	'prelude-ls': {map, filter}
 	'./util': {filter-by-tag, filter-by-value, to-error}
 }
 
