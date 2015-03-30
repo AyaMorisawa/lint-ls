@@ -1,7 +1,7 @@
 require! {
 	LiveScript: {lex: parse-ls}
 	'prelude-ls': {filter, map}
-	'./util': {first, second, filter2, is-tag, is-value-by, is-value, to-error, windowed, is-not-pascal-case}
+	'./util': {second, filter2, is-tag, is-value-by, is-value, to-error, windowed, is-not-pascal-case}
 }
 
 module.exports = (source, {
