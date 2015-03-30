@@ -52,4 +52,6 @@ check-default = (lex) ->
 	lex |> filter is-tag \DEFAULT |> to-error \default-is-not-allowed
 
 check-pascal-case-class-name = (lex) ->
-	lex |> windowed 2 |> filter2 (is-tag \CLASS), (is-value-by is-not-pascal-case) |> map second |> to-error \class-name-must-be-pascal-case
+	lex
+	|> windowed 2 |> filter2 (is-tag \CLASS), (is-value-by is-not-pascal-case)
+	|> map second |> to-error \class-name-must-be-pascal-case
