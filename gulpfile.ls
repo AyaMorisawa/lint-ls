@@ -3,7 +3,7 @@ require! {
 	'gulp-livescript': ls
 }
 
-gulp.task \test ->
+gulp.task \test <[ build ]> ->
 
 gulp.task \build <[ build-package-json build-src ]>
 
