@@ -14,3 +14,6 @@ require! \lint-ls
 
 result = lint-ls source, option
 ```
+
+## License
+MIT
