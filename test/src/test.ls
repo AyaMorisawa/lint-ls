@@ -52,7 +52,7 @@ describe \allow-case (...) ->
 		lint '''
 switch
 case a => b!
-''' .should.have.deep.property '[0][1]' .equal \case-is-not-allowed
+''' {-allow-case} .should.have.deep.property '[0][1]' .equal \case-is-not-allowed
 
 
 describe \allow-default (...) ->
