@@ -29,5 +29,6 @@ dependencies:
 dev-dependencies:
 	gulp: '3.8.11'
 	'gulp-livescript': '2.3.0'
+	'gulp-lint-ls': '0.0.1'
 	'gulp-mocha': '2.0.1'
 	chai: '2.2.0'

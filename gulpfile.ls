@@ -1,12 +1,17 @@
 require! {
 	gulp
 	'gulp-livescript': ls
+	'gulp-lint-ls': lint-ls
 	'gulp-mocha': mocha
 }
 
-gulp.task \test <[ build ]> ->
+gulp.task \test <[ lint build ]> ->
 	gulp.src './test/lib/**/*.js'
 		.pipe mocha reporter: \list
+
+gulp.task \lint ->
+	gulp.src './**/*.ls'
+		.pipe lint-ls!
 
 gulp.task \build <[ build-package-json build-src build-test ]>
 
