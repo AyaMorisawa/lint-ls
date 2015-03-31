@@ -5,7 +5,7 @@
 # lint-ls
 Linter for LiveScript
 
-## Installation
+## Install
 `npm install lint-ls`
 
 ## Usage
