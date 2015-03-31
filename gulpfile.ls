@@ -6,7 +6,7 @@ require! {
 
 gulp.task \test <[ build ]> ->
 	gulp.src './test/lib/**/*.js'
-		.pipe mocha!
+		.pipe mocha reporter: \list
 
 gulp.task \build <[ build-package-json build-src build-test ]>
 
