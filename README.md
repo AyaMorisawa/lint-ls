@@ -31,5 +31,8 @@ read-file = (filename) -> fs.read-file-sync filename .to-string!
 result = read-file 'hoge.ls' |> lint-ls _, option
 ```
 
+### Gulp
+Use [gulp-lint-ls](https://github.com/AyaMorisawa/gulp-lint-ls)
+
 ## License
 MIT
