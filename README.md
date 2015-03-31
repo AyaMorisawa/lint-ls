@@ -10,10 +10,25 @@ Linter for LiveScript
 `npm install lint-ls`
 
 ## Usage
+### Basic
 ```ls
 require! \lint-ls
 
 result = lint-ls source, option
+```
+
+```ls
+require! \lint-ls
+
+result = lint-ls source # Default option will be used
+```
+
+### File
+```ls
+require! <[ lint-ls fs ]>
+
+read-file = (filename) -> fs.read-file-sync filename .to-string!
+result = lint-ls read-file 'hoge.ls', option
 ```
 
 ## License
