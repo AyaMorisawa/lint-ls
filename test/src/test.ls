@@ -5,6 +5,12 @@ require! {
 
 should!
 
+describe \line-number (...) ->
+	it \1 ->
+		lint 'class HogeHuga' .should.have.deep.property '[0][0]' .equal 1
+	it \2 ->
+		lint '\nclass HogeHuga' .should.have.deep.property '[0][0]' .equal 2
+
 describe \allow-class (...) ->
 	it \no ->
 		lint 'class HogeHuga' .should.have.deep.property '[0][1]' .equal \class-is-not-allowed
