@@ -26,9 +26,9 @@ result = lint-ls source # Default option will be used
 ### File
 ```ls
 require! <[ lint-ls fs ]>
-
 read-file = (filename) -> fs.read-file-sync filename .to-string!
-result = lint-ls (read-file 'hoge.ls'), option
+
+result = read-file 'hoge.ls' |> lint-ls _, option
 ```
 
 ## License
