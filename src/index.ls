@@ -1,7 +1,8 @@
 require! {
 	LiveScript: {lex: parse-ls}
 	'prelude-ls': {filter, map, sort-by}
-	'./util': {fst, snd, filter2, is-tag, is-value-by, is-value, to-error, windowed, is-not-pascal-case}
+	'get-tuple': {fst, snd}
+	'./util': {filter2, is-tag, is-value-by, is-value, to-error, windowed, is-not-pascal-case}
 }
 
 module.exports = (source, {

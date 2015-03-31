@@ -24,6 +24,7 @@ repository:
 dependencies:
 	LiveScript: '1.3.1'
 	'prelude-ls': '1.1.1'
+	'get-tuple': '0.0.1'
 
 dev-dependencies:
 	gulp: '3.8.11'
