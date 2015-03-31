@@ -21,6 +21,6 @@ windowed = (size, xs) -->
 
 is-pascal-case = (text) -> text is /^([A-Z][a-z]+)+$/
 
-is-not-pascal-case = (is-pascal-case) >> (not)
+is-not-pascal-case = is-pascal-case >> (not)
 
 module.exports = {filter2, is-tag-by, is-tag, is-value-by, is-value, to-error, windowed, is-pascal-case, is-not-pascal-case}
