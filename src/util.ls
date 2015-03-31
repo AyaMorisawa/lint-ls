@@ -13,7 +13,7 @@ is-value-by = (f, token) --> f snd token
 
 is-value = (value) -> is-value-by (is value)
 
-to-error = (error-type, lex) --> lex |> map trd |> map (line) -> [line + 1, error-type]
+to-error = (error-type, lex) --> lex |> map trd |> map (+ 1) |> map (line) -> [line, error-type]
 
 windowed = (size, xs) -->
 	const last = xs.length - size
