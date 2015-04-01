@@ -1,6 +1,6 @@
 {
   "name": "lint-ls",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "description": "Linter for LiveScript",
   "author": {
     "name": "Aya Morisawa",
