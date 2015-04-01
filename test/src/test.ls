@@ -15,6 +15,9 @@ describe \lint (...) ->
 	it \allow-class ->
 		lint 'class HogeHuga' .should.eql [[1 \class-is-not-allowed]]
 
+	it \allow-new ->
+		lint 'a = new B' .should.eql [[1 \new-is-not-allowed]]
+
 	it \allow-return ->
 		lint 'return 42' .should.eql [[1 \return-is-not-allowed]]
 

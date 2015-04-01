@@ -7,6 +7,7 @@ require! {
 
 module.exports = (source, {
 	allow-class = no
+	allow-new = no
 	allow-return = no
 	allow-throw = no
 	allow-break = no
@@ -24,6 +25,7 @@ module.exports = (source, {
 	const lex = parse-ls source
 
 	(if allow-class     then [] else check-class    lex) ++
+	(if allow-new       then [] else check-new      lex) ++
 	(if allow-return    then [] else check-return   lex) ++
 	(if allow-throw     then [] else check-throw    lex) ++
 	(if allow-break     then [] else check-break    lex) ++
@@ -41,6 +43,9 @@ module.exports = (source, {
 
 check-class = (lex) ->
 	lex |> filter is-tag \CLASS |> to-error \class-is-not-allowed
+
+check-new = (lex) ->
+	lex |> filter is-tag \UNARY |> filter is-value \new |> to-error \new-is-not-allowed
 
 check-return = (lex) ->
 	lex |> filter is-tag \HURL |> filter is-value \return |> to-error \return-is-not-allowed
