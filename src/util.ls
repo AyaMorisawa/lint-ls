@@ -21,13 +21,13 @@ filter-lex = (options) ->
 
 filter2 = (f, g) --> filter ([a, b]) -> f a and g b
 
-is-tag-by = (f, token) --> f fst token
+is-tag-by = (fst >>)
 
-is-tag = (tag) -> is-tag-by (is tag)
+is-tag = (is) >> is-tag-by
 
-is-value-by = (f, token) --> f snd token
+is-value-by = (snd >>)
 
-is-value = (value) -> is-value-by (is value)
+is-value = (is) >> is-value-by
 
 to-error = (error-type, lex) --> lex |> map trd |> map (+ 1) |> map (line) -> [line, error-type]
 
