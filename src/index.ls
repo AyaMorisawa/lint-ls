@@ -1,6 +1,6 @@
 require! {
 	LiveScript: {lex: parse-ls}
-	'prelude-ls': {filter, map, sort-by}
+	'prelude-ls': {filter, map}
 	'get-tuple': {fst, snd}
 	'./util': {check-rules, filter2, is-tag, is-value-by, is-value, to-error, windowed, is-not-pascal-case}
 }
