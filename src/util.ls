@@ -1,5 +1,5 @@
 require! {
-	'prelude-ls': {map, filter, sort-by, concat, id}
+	'prelude-ls': {map, filter, sort-by, concat, id, fold1, camelize}
 	'get-tuple': {fst, snd, trd}
 }
 
@@ -7,12 +7,17 @@ check-rule = ([skip, check, target]) -> if skip then [] else check target
 
 check-rules = (map check-rule) >> concat >> sort-by fst
 
-filter-lex = (option, lex) -->
-	lex
-	|> if option.tag? then filter is-tag option.tag else id
-	|> if option.value? then filter is-value option.value else id
-	|> if option.tag-by? then filter is-tag-by option.tag-by else id
-	|> if option.value-by? then filter is-value-by option.value-by else id
+filter-lex = (options) ->
+	[
+		[\tag is-tag]
+		[\value is-value]
+		[\tag-by is-tag-by]
+		[\value-by is-value-by]
+	]
+	|> map ([name, f]) ->
+		const option = options[camelize name]
+		if option? then filter f option else id
+	|> fold1 (>>)
 
 filter2 = (f, g, xss) --> xss |> filter ([a, b]) -> f a and g b
 
