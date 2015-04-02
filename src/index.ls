@@ -24,13 +24,13 @@ module.exports = (source, {
 } = {}) ->
 	const lex = parse-ls source
 
-	check = (rules) ->
+	check-rules = (rules) ->
 		rules
 		|> map ([skip, check, target]) -> if skip then [] else check target
 		|> concat
 		|> sort-by fst
 
-	check [
+	check-rules [
 		[allow-class, check-class, lex]
 		[allow-new, check-new, lex]
 		[allow-return, check-return, lex]
