@@ -7,7 +7,7 @@ require! {
 }
 
 module.exports = (source, options) ->
-	{
+	const {
 		allow-class
 		allow-new
 		allow-return
