@@ -1,5 +1,5 @@
 require! {
-	'prelude-ls': {map, filter, sort-by, concat}
+	'prelude-ls': {map, filter, sort-by, concat, id}
 	'get-tuple': {fst, snd, trd}
 }
 
@@ -8,8 +8,6 @@ check-rules = (rules) ->
 	|> map ([skip, check, target]) -> if skip then [] else check target
 	|> concat
 	|> sort-by fst
-
-id = (x) -> x
 
 filter-lex = (option, lex) -->
 	lex
