@@ -35,7 +35,7 @@ windowed = (size, xs) -->
 	const last = xs.length - size
 	if last < 0 then [] else [xs[i til i + size] for i from 0 to last]
 
-is-pascal-case = (text) -> text is /^([A-Z][a-z]+)+$/
+is-pascal-case = (is /^([A-Z][a-z]+)+$/)
 
 is-not-pascal-case = is-pascal-case >> (not)
 
