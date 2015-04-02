@@ -29,7 +29,7 @@ is-value-by = (snd >>)
 
 is-value = (is) >> is-value-by
 
-to-error = (error-type, lex) --> lex |> map trd |> map (+ 1) |> map (line) -> [line, error-type]
+to-error = (error-type) -> (map trd) >> (map (+ 1)) >> map (line) -> [line, error-type]
 
 windowed = (size, xs) -->
 	const last = xs.length - size
