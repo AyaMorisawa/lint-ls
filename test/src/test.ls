@@ -32,3 +32,7 @@ describe \enforce-pascal-case-class-name (...) ->
 describe \line-number (...) ->
 	it \1 -> lint 'class HogeHuga' .should.eql [[1 \class-is-not-allowed]]
 	it \2 -> lint '\nclass HogeHuga' .should.eql [[2 \class-is-not-allowed]]
+
+describe \multi-error (...) ->
+	it \class -> lint 'class hogeHuga' .should.eql [[1 \class-is-not-allowed] [1 \class-name-must-be-pascal-case]]
+	it \delete-this -> lint 'delete this.a' .should.eql [[1 \this-is-not-allowed] [1 \delete-is-not-allowed]]
