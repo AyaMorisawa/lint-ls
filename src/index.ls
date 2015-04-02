@@ -2,26 +2,29 @@ require! {
 	LiveScript: {lex: parse-ls}
 	'prelude-ls': {filter, map, fold1}
 	'get-tuple': {snd}
+	'./default-options'
 	'./util': {check-rules, filter-lex, filter2, is-tag, is-value-by, to-error, windowed, is-not-pascal-case}
 }
 
-module.exports = (source, {
-	allow-class = no
-	allow-new = no
-	allow-return = no
-	allow-throw = no
-	allow-break = no
-	allow-continue = no
-	allow-while = no
-	allow-case = yes
-	allow-default = no
-	allow-null = no
-	allow-void = no
-	allow-this = no
-	allow-delete = no
-	allow-eval = no
-	enforce-pascal-case-class-name = yes
-} = {}) ->
+module.exports = (source, options) ->
+	{
+		allow-class
+		allow-new
+		allow-return
+		allow-throw
+		allow-break
+		allow-continue
+		allow-while
+		allow-case
+		allow-default
+		allow-null
+		allow-void
+		allow-this
+		allow-delete
+		allow-eval
+		enforce-pascal-case-class-name
+	} = default-options with options
+
 	const lex = parse-ls source
 
 	check-rules [

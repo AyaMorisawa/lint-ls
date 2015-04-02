@@ -1,0 +1,15 @@
+allow-class: no
+allow-new: no
+allow-return: no
+allow-throw: no
+allow-break: no
+allow-continue: no
+allow-while: no
+allow-case: yes
+allow-default: no
+allow-null: no
+allow-void: no
+allow-this: no
+allow-delete: no
+allow-eval: no
+enforce-pascal-case-class-name: yes
