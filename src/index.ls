@@ -1,6 +1,6 @@
 require! {
 	LiveScript: {lex: parse-ls}
-	'prelude-ls': {filter, map, sort-by}
+	'prelude-ls': {filter, map, sort-by, concat}
 	'get-tuple': {fst, snd}
 	'./util': {filter2, is-tag, is-value-by, is-value, to-error, windowed, is-not-pascal-case}
 }
@@ -24,22 +24,29 @@ module.exports = (source, {
 } = {}) ->
 	const lex = parse-ls source
 
-	(if allow-class     then [] else check-class    lex) ++
-	(if allow-new       then [] else check-new      lex) ++
-	(if allow-return    then [] else check-return   lex) ++
-	(if allow-throw     then [] else check-throw    lex) ++
-	(if allow-break     then [] else check-break    lex) ++
-	(if allow-continue  then [] else check-continue lex) ++
-	(if allow-while     then [] else check-while    lex) ++
-	(if allow-case      then [] else check-case     lex) ++
-	(if allow-default   then [] else check-default  lex) ++
-	(if allow-null      then [] else check-null     lex) ++
-	(if allow-void      then [] else check-void     lex) ++
-	(if allow-this      then [] else check-this     lex) ++
-	(if allow-delete    then [] else check-delete   lex) ++
-	(if allow-eval      then [] else check-eval     lex) ++
-	(unless enforce-pascal-case-class-name then [] else check-pascal-case-class-name lex)
-	|> sort-by fst
+	check = (rules) ->
+		rules
+		|> map ([skip, check, target]) -> if skip then [] else check target
+		|> concat
+		|> sort-by fst
+
+	check [
+		[allow-class, check-class, lex]
+		[allow-new, check-new, lex]
+		[allow-return, check-return, lex]
+		[allow-throw, check-throw, lex]
+		[allow-break, check-break, lex]
+		[allow-continue, check-continue, lex]
+		[allow-while, check-while, lex]
+		[allow-case, check-case, lex]
+		[allow-default, check-default, lex]
+		[allow-null, check-null, lex]
+		[allow-void, check-void, lex]
+		[allow-this, check-this, lex]
+		[allow-delete, check-delete, lex]
+		[allow-eval, check-eval, lex]
+		[!enforce-pascal-case-class-name, check-pascal-case-class-name, lex]
+	]
 
 check-class = (lex) ->
 	lex |> filter is-tag \CLASS |> to-error \class-is-not-allowed
