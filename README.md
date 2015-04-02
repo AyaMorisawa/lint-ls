@@ -34,5 +34,8 @@ result = read-file 'hoge.ls' |> lint-ls _, option
 ### Gulp
 Use [gulp-lint-ls](https://github.com/AyaMorisawa/gulp-lint-ls)
 
+## Options
+See [Default Options](src/default-options.json.ls)
+
 ## License
 MIT
