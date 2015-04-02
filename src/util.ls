@@ -1,5 +1,5 @@
 require! {
-	'prelude-ls': {map, filter}
+	'prelude-ls': {map, filter, sort-by, concat}
 	'get-tuple': {fst, snd, trd}
 }
 

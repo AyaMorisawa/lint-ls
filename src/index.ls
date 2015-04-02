@@ -1,8 +1,8 @@
 require! {
 	LiveScript: {lex: parse-ls}
-	'prelude-ls': {filter, map, sort-by, concat}
+	'prelude-ls': {filter, map, sort-by}
 	'get-tuple': {fst, snd}
-	'./util': {filter2, is-tag, is-value-by, is-value, to-error, windowed, is-not-pascal-case}
+	'./util': {check-rules, filter2, is-tag, is-value-by, is-value, to-error, windowed, is-not-pascal-case}
 }
 
 module.exports = (source, {
@@ -23,12 +23,6 @@ module.exports = (source, {
 	enforce-pascal-case-class-name = yes
 } = {}) ->
 	const lex = parse-ls source
-
-	check-rules = (rules) ->
-		rules
-		|> map ([skip, check, target]) -> if skip then [] else check target
-		|> concat
-		|> sort-by fst
 
 	check-rules [
 		[allow-class, check-class, lex]
