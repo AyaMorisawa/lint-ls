@@ -2,7 +2,7 @@ require! {
 	LiveScript: {lex: parse-ls}
 	'prelude-ls': {filter, map}
 	'get-tuple': {snd}
-	'./util': {check-rules, filter2, is-tag, is-value-by, is-value, to-error, windowed, is-not-pascal-case}
+	'./util': {check-rules, filter-lex, filter2, is-tag, is-value-by, to-error, windowed, is-not-pascal-case}
 }
 
 module.exports = (source, {
@@ -43,46 +43,46 @@ module.exports = (source, {
 	]
 
 check-class = (lex) ->
-	lex |> filter is-tag \CLASS |> to-error \class-is-not-allowed
+	lex |> filter-lex {tag: \CLASS} |> to-error \class-is-not-allowed
 
 check-new = (lex) ->
-	lex |> filter is-tag \UNARY |> filter is-value \new |> to-error \new-is-not-allowed
+	lex |> filter-lex {tag: \UNARY, value: \new} |> to-error \new-is-not-allowed
 
 check-return = (lex) ->
-	lex |> filter is-tag \HURL |> filter is-value \return |> to-error \return-is-not-allowed
+	lex |> filter-lex {tag: \HURL, value: \return} |> to-error \return-is-not-allowed
 
 check-throw = (lex) ->
-	lex |> filter is-tag \HURL |> filter is-value \throw |> to-error \throw-is-not-allowed
+	lex |> filter-lex {tag: \HURL, value: \throw} |> to-error \throw-is-not-allowed
 
 check-break = (lex) ->
-	lex |> filter is-tag \JUMP |> filter is-value \break |> to-error \break-is-not-allowed
+	lex |> filter-lex {tag: \JUMP, value: \break} |> to-error \break-is-not-allowed
 
 check-continue = (lex) ->
-	lex |> filter is-tag \JUMP |> filter is-value \continue |> to-error \continue-is-not-allowed
+	lex |> filter-lex {tag: \JUMP, value: \continue} |> to-error \continue-is-not-allowed
 
 check-while = (lex) ->
-	lex |> filter is-tag \WHILE |> to-error \while-is-not-allowed
+	lex |> filter-lex {tag: \WHILE} |> to-error \while-is-not-allowed
 
 check-case = (lex) ->
-	lex |> filter is-tag \CASE |> filter is-value \case |> to-error \case-is-not-allowed
+	lex |> filter-lex {tag: \CASE, value: \case} |> to-error \case-is-not-allowed
 
 check-default = (lex) ->
-	lex |> filter is-tag \DEFAULT |> to-error \default-is-not-allowed
+	lex |> filter-lex {tag: \DEFAULT} |> to-error \default-is-not-allowed
 
 check-null = (lex) ->
-	lex |> filter is-tag \LITERAL |> filter is-value \null |> to-error \null-is-not-allowed
+	lex |> filter-lex {tag: \LITERAL, value: \null} |> to-error \null-is-not-allowed
 
 check-void = (lex) ->
-	lex |> filter is-tag \LITERAL |> filter is-value \void |> to-error \void-is-not-allowed
+	lex |> filter-lex {tag: \LITERAL, value: \void} |> to-error \void-is-not-allowed
 
 check-this = (lex) ->
-	lex |> filter is-tag \LITERAL |> filter is-value \this |> to-error \this-is-not-allowed
+	lex |> filter-lex {tag: \LITERAL, value: \this} |> to-error \this-is-not-allowed
 
 check-delete = (lex) ->
-	lex |> filter is-tag \UNARY |> filter is-value-by (in <[ delete jsdelete ]>) |> to-error \delete-is-not-allowed
+	lex |> filter-lex {tag: \UNARY, value-by: (in <[ delete jsdelete ]>)} |> to-error \delete-is-not-allowed
 
 check-eval = (lex) ->
-	lex |> filter is-tag \LITERAL |> filter is-value \eval |> to-error \eval-is-not-allowed
+	lex |> filter-lex {tag: \LITERAL, value: \eval} |> to-error \eval-is-not-allowed
 
 check-pascal-case-class-name = (lex) ->
 	lex

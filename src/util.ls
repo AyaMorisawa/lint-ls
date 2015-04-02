@@ -9,6 +9,15 @@ check-rules = (rules) ->
 	|> concat
 	|> sort-by fst
 
+id = (x) -> x
+
+filter-lex = (option, lex) -->
+	lex
+	|> if option.tag? then filter is-tag option.tag else id
+	|> if option.value? then filter is-value option.value else id
+	|> if option.tag-by? then filter is-tag-by option.tag-by else id
+	|> if option.value-by? then filter is-value-by option.value-by else id
+
 filter2 = (f, g, xss) --> xss |> filter ([a, b]) -> f a and g b
 
 is-tag-by = (f, token) --> f fst token
@@ -29,4 +38,4 @@ is-pascal-case = (text) -> text is /^([A-Z][a-z]+)+$/
 
 is-not-pascal-case = is-pascal-case >> (not)
 
-module.exports = {check-rules, filter2, is-tag-by, is-tag, is-value-by, is-value, to-error, windowed, is-pascal-case, is-not-pascal-case}
+module.exports = {check-rules, filter-lex, filter2, is-tag-by, is-tag, is-value-by, is-value, to-error, windowed, is-pascal-case, is-not-pascal-case}
