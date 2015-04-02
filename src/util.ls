@@ -8,16 +8,16 @@ check-rule = ([skip, check, target]) -> if skip then [] else check target
 check-rules = (map check-rule) >> concat >> sort-by fst
 
 filter-lex = (options) ->
+	_filter-lex = ([name, f]) ->
+		const option = options[camelize name]
+		if option? then filter f option else id
+
 	[
 		[\tag is-tag]
 		[\value is-value]
 		[\tag-by is-tag-by]
 		[\value-by is-value-by]
-	]
-	|> map ([name, f]) ->
-		const option = options[camelize name]
-		if option? then filter f option else id
-	|> fold1 (>>)
+	] |> map _filter-lex |> fold1 (>>)
 
 filter2 = (f, g) --> filter ([a, b]) -> f a and g b
 
