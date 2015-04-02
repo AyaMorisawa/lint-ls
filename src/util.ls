@@ -19,7 +19,7 @@ filter-lex = (options) ->
 		if option? then filter f option else id
 	|> fold1 (>>)
 
-filter2 = (f, g, xss) --> xss |> filter ([a, b]) -> f a and g b
+filter2 = (f, g) --> filter ([a, b]) -> f a and g b
 
 is-tag-by = (f, token) --> f fst token
 
