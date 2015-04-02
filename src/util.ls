@@ -3,11 +3,9 @@ require! {
 	'get-tuple': {fst, snd, trd}
 }
 
-check-rules = (rules) ->
-	rules
-	|> map ([skip, check, target]) -> if skip then [] else check target
-	|> concat
-	|> sort-by fst
+check-rule = ([skip, check, target]) -> if skip then [] else check target
+
+check-rules = (map check-rule) >> concat >> sort-by fst
 
 filter-lex = (option, lex) -->
 	lex
