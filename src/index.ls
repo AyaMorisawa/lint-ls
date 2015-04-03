@@ -26,21 +26,21 @@ module.exports = (source, options) ->
 	const lex = parse-ls source
 
 	check-rules [
-		[allow-class, check-class, lex]
-		[allow-new, check-new, lex]
-		[allow-return, check-return, lex]
-		[allow-throw, check-throw, lex]
-		[allow-break, check-break, lex]
-		[allow-continue, check-continue, lex]
-		[allow-while, check-while, lex]
-		[allow-case, check-case, lex]
-		[allow-default, check-default, lex]
-		[allow-null, check-null, lex]
-		[allow-void, check-void, lex]
-		[allow-this, check-this, lex]
-		[allow-delete, check-delete, lex]
-		[allow-eval, check-eval, lex]
-		[!enforce-pascal-case-class-name, check-pascal-case-class-name, lex]
+		* allow-class, check-class, lex
+		* allow-new, check-new, lex
+		* allow-return, check-return, lex
+		* allow-throw, check-throw, lex
+		* allow-break, check-break, lex
+		* allow-continue, check-continue, lex
+		* allow-while, check-while, lex
+		* allow-case, check-case, lex
+		* allow-default, check-default, lex
+		* allow-null, check-null, lex
+		* allow-void, check-void, lex
+		* allow-this, check-this, lex
+		* allow-delete, check-delete, lex
+		* allow-eval, check-eval, lex
+		* !enforce-pascal-case-class-name, check-pascal-case-class-name, lex
 	]
 
 check-class = (filter-lex {tag: \CLASS}) >> to-error \class-is-not-allowed

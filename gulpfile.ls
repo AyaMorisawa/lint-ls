@@ -11,7 +11,7 @@ gulp.task \test <[ lint build ]> ->
 
 gulp.task \lint ->
 	gulp.src './**/*.ls'
-		.pipe lint-ls!
+		.pipe lint-ls {+allow-void}
 
 gulp.task \build <[ build-package-json build-src build-test ]>
 
