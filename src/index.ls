@@ -1,7 +1,5 @@
 require! {
 	LiveScript: {lex: parse-ls}
-	'prelude-ls': {filter, map, fold1}
-	'get-tuple': {snd}
 	'./default-options'
 	'./util': {check-rules, filter-lex, to-error, is-not-pascal-case}
 }

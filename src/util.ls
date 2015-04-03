@@ -1,5 +1,5 @@
 require! {
-	'prelude-ls': {map, filter, reject, sort-by, concat, id, fold1, camelize, obj-to-pairs, pairs-to-obj, zip-with}
+	'prelude-ls': {map, filter, reject, sort-by, concat, fold1, obj-to-pairs, pairs-to-obj, zip-with}
 	'get-tuple': {fst, snd, trd}
 }
 
