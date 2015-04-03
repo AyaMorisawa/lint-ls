@@ -1,7 +1,6 @@
 require! {
-	LiveScript: {lex: parse-ls}
 	'./default-options'
-	'./util': {check-rules, filter-lex, to-error, is-not-pascal-case}
+	'./util': {parse-ls, check-rules, filter-lex, to-error, is-not-pascal-case}
 }
 
 module.exports = (source, options) ->
@@ -23,7 +22,7 @@ module.exports = (source, options) ->
 		enforce-pascal-case-class-name
 	} = default-options with options
 
-	const lex = parse-ls source
+	{ast, tokens, lex} = parse-ls source
 
 	check-rules [
 		* allow-class, check-class, lex

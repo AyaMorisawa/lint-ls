@@ -1,7 +1,10 @@
 require! {
-	'prelude-ls': {map, filter, reject, sort-by, concat, fold1, obj-to-pairs, pairs-to-obj, zip-with}
+	'LiveScript': {ast, tokens, lex}
+	'prelude-ls': {Obj, map, filter, reject, sort-by, concat, fold1, obj-to-pairs, pairs-to-obj, zip-with}
 	'get-tuple': {fst, snd, trd}
 }
+
+parse-ls = (source) -> {ast, tokens, lex} |> Obj.map (<| source)
 
 check-rule = ([skip, check, target]) -> if skip then [] else check target
 check-rules = (map check-rule) >> concat >> sort-by fst
@@ -48,4 +51,4 @@ windowed = (size, xs) -->
 is-pascal-case = (is /^([A-Z][a-z]+)+$/)
 is-not-pascal-case = is-pascal-case >> (not)
 
-module.exports = {check-rules, filter-lex, to-error, is-pascal-case, is-not-pascal-case}
+module.exports = {parse-ls, check-rules, filter-lex, to-error, is-pascal-case, is-not-pascal-case}
