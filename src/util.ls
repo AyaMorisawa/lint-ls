@@ -4,7 +4,6 @@ require! {
 }
 
 check-rule = ([skip, check, target]) -> if skip then [] else check target
-
 check-rules = (map check-rule) >> concat >> sort-by fst
 
 filter-lex = (options) ->
@@ -18,6 +17,11 @@ filter-lex = (options) ->
 		(if options.prev? then flatten-options options.prev else []) ++
 		(options |> obj-to-pairs |> (reject ([key]) -> key in <[ prev next ]>) |> pairs-to-obj) ++
 		(if options.next? then flatten-options options.next else [])
+
+	is-tag-by = (fst >>)
+	is-tag = (is) >> is-tag-by
+	is-value-by = (snd >>)
+	is-value = (is) >> is-value-by
 
 	generate-filter = (options) ->
 		options
@@ -33,14 +37,6 @@ filter-lex = (options) ->
 		|> filter-n (options |> flatten-options |> map generate-filter)
 		|> map (.[depth])
 
-is-tag-by = (fst >>)
-
-is-tag = (is) >> is-tag-by
-
-is-value-by = (snd >>)
-
-is-value = (is) >> is-value-by
-
 to-error = (error-type) -> (map trd) >> (map real-line) >> map (line) -> [line, error-type]
 
 real-line = (+ 1)
@@ -50,7 +46,6 @@ windowed = (size, xs) -->
 	if last < 0 then [] else [xs[i til i + size] for i from 0 to last]
 
 is-pascal-case = (is /^([A-Z][a-z]+)+$/)
-
 is-not-pascal-case = is-pascal-case >> (not)
 
 module.exports = {check-rules, filter-lex, to-error, is-pascal-case, is-not-pascal-case}
