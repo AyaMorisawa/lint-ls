@@ -3,7 +3,7 @@ require! {
 	'prelude-ls': {filter, map, fold1}
 	'get-tuple': {snd}
 	'./default-options'
-	'./util': {check-rules, filter-lex, filter2, is-tag, is-value-by, to-error, windowed, is-not-pascal-case}
+	'./util': {check-rules, filter-lex, to-error, is-not-pascal-case}
 }
 
 module.exports = (source, options) ->
@@ -59,10 +59,4 @@ check-void = (filter-lex {tag: \LITERAL, value: \void}) >> to-error \void-is-not
 check-this = (filter-lex {tag: \LITERAL, value: \this}) >> to-error \this-is-not-allowed
 check-delete = (filter-lex {tag: \UNARY, value-by: (in <[ delete jsdelete ]>)}) >> to-error \delete-is-not-allowed
 check-eval = (filter-lex {tag: \LITERAL, value: \eval}) >> to-error \eval-is-not-allowed
-
-check-pascal-case-class-name = [
-	windowed 2
-	filter2 (is-tag \CLASS), (is-value-by is-not-pascal-case)
-	map snd
-	to-error \class-name-must-be-pascal-case
-] |> fold1 (>>)
+check-pascal-case-class-name = (filter-lex {prev: {tag: \CLASS}, value-by: is-not-pascal-case}) >> to-error \class-name-must-be-pascal-case
