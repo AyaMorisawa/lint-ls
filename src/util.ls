@@ -10,9 +10,11 @@ check-rule = ([skip, check, target]) -> if skip then [] else check target
 check-rules = (map check-rule) >> concat >> sort-by fst
 
 filter-lex = (options) ->
-	get-depth = (options) ->
-		| options.prev? => 1 + get-depth options.prev
+	count-rec = (f, x) -->
+		| f x => 1 + count-rec f, f x
 		| _ => 0
+
+	get-depth = count-rec (.prev) >> (?)
 
 	filter-n = (fs, xss) --> xss |> filter (zip-with (<|), fs) >> fold1 (and)
 
