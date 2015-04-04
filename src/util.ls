@@ -1,10 +1,10 @@
 require! {
-	'LiveScript': {ast, tokens, lex}
+	LiveScript
 	'prelude-ls': {Obj, map, filter, reject, sort-by, concat, fold1, obj-to-pairs, pairs-to-obj, zip-with}
 	'get-tuple': {fst, snd, trd}
 }
 
-parse-ls = (source) -> {ast, tokens, lex} |> Obj.map (<| source)
+parse-ls = (source) -> {LiveScript.ast, LiveScript.tokens, LiveScript.lex} |> Obj.map (<| source)
 
 check-rule = ([skip, check, target]) -> if skip then [] else check target
 check-rules = (map check-rule) >> concat >> sort-by fst
